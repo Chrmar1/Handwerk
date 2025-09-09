@@ -124,7 +124,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li className="flex items-start space-x-2">
                 <span>📍</span>
-                <span className="text-primary-foreground/80">Musterstraße 123, 50667 Köln</span>
+                <span className="text-primary-foreground/80">Giesdorfer Allee 3, 50997 Köln </span>
               </li>
               <li className="flex items-center space-x-2">
                 <span>📞</span>
@@ -140,7 +140,7 @@ const Footer = () => {
                 <a 
                   className="text-primary-foreground/80 hover:text-accent transition-colors break-all"
                 >
-                  Christian.marks@gmx.de
+                  christian.marks@gmx.de
                 </a>
               </li>
               <li className="flex items-start space-x-2">

@@ -48,7 +48,7 @@ const Testimonials = () => {
             Was unsere Kunden sagen
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Über 500 zufriedene Kunden vertrauen auf unsere Expertise. Lesen Sie, was sie über unsere Arbeit sagen.
+            Mehrere Zufriedene Kunden vertrauen auf unsere Expertise. Lesen Sie, was sie über unsere Arbeit sagen.
           </p>
         </div>
 

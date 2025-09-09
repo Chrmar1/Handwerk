@@ -33,7 +33,6 @@ const Header = () => {
   const navItems = [
     { id: "home", label: "Start" },
     { id: "services", label: "Leistungen" },
-    { id: "why-us", label: "Warum wir" },
     { id: "projects", label: "Projekte" },
     { id: "testimonials", label: "Bewertungen" },
     { id: "booking", label: "Termin" },

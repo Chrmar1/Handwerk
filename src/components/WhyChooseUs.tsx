@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+{/*import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Shield, Clock } from "lucide-react";
 
 const WhyChooseUs = () => {
@@ -56,7 +56,7 @@ const WhyChooseUs = () => {
           ))}
         </div>
 
-        {/* Additional Benefits */}
+        {/* Additional Benefits 
         <div className="bg-card rounded-2xl p-8 shadow-card border border-border/50">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
@@ -102,4 +102,4 @@ const WhyChooseUs = () => {
   );
 };
 
-export default WhyChooseUs;
+export default WhyChooseUs;*/}

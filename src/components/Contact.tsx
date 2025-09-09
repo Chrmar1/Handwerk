@@ -1,42 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { useState } from "react";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: ""
-  });
   const { toast } = useToast();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.message) {
-      toast({
-        title: "Fehler",
-        description: "Bitte füllen Sie alle Felder aus.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Nachricht gesendet!",
-        description: "Vielen Dank für Ihre Nachricht. Wir melden uns schnellstmöglich bei Ihnen.",
-      });
-      
-      setFormData({ name: "", email: "", message: "" });
-    }, 500);
-  };
 
   const contactInfo = [
     {
@@ -53,7 +20,7 @@ const Contact = () => {
     {
       icon: <Mail className="h-6 w-6 text-accent" />,
       title: "E-Mail",
-      content: "Christian.marks@gmx.de",
+      content: "christian.marks@gmx.de",
     },
     {
       icon: <Clock className="h-6 w-6 text-accent" />,
@@ -70,7 +37,7 @@ const Contact = () => {
             Kontakt
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Haben Sie Fragen oder möchten Sie ein unverbindliches Angebot? 
+            Haben Sie Fragen oder möchten Sie ein unverbindliches Angebot?
             Kontaktieren Sie uns – wir freuen uns auf Ihr Projekt!
           </p>
         </div>
@@ -79,7 +46,7 @@ const Contact = () => {
           {/* Contact Information */}
           <div className="space-y-6">
             {contactInfo.map((item, index) => (
-              <Card 
+              <Card
                 key={index}
                 className="group hover:shadow-card transition-all duration-300 transform hover:-translate-y-1 bg-card/50 backdrop-blur-sm border-border/50"
               >
@@ -93,7 +60,7 @@ const Contact = () => {
                         {item.title}
                       </h3>
                       {item.link ? (
-                        <a 
+                        <a
                           href={item.link}
                           className="text-muted-foreground hover:text-primary transition-colors whitespace-pre-line"
                         >
@@ -121,68 +88,17 @@ const Contact = () => {
             </Card>
           </div>
 
-          {/* Contact Form */}
-          <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-card">
-            <CardHeader>
-              <CardTitle className="text-2xl text-primary">Schnelle Anfrage</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="contactName" className="text-primary font-medium">
-                    Name <span className="text-destructive">*</span>
-                  </Label>
-                  <Input
-                    id="contactName"
-                    type="text"
-                    placeholder="Ihr Name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="border-border/50"
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="contactEmail" className="text-primary font-medium">
-                    E-Mail <span className="text-destructive">*</span>
-                  </Label>
-                  <Input
-                    id="contactEmail"
-                    type="email"
-                    placeholder="ihre.email@beispiel.de"
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="border-border/50"
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="contactMessage" className="text-primary font-medium">
-                    Nachricht <span className="text-destructive">*</span>
-                  </Label>
-                  <Textarea
-                    id="contactMessage"
-                    placeholder="Ihre Nachricht..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    rows={5}
-                    className="border-border/50"
-                    required
-                  />
-                </div>
-
-                <Button 
-                  type="submit" 
-                  className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
-                  size="lg"
-                >
-                  Nachricht senden
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+          {/* Google Maps statt Kontaktformular */}
+              <div className="w-full h-[350px] rounded-2xl overflow-hidden shadow-lg border border-border/30">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2525.8351886841186!2d6.9500000!3d50.8660000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bf3e7c2d2e6c01%3A0x123456789abcdef!2sGiesdorfer%20Allee%203%2C%2050997%20K%C3%B6ln!5e0!3m2!1sde!2sde!4v1690000000000!5m2!1sde!2sde"
+                  className="w-full h-full"
+                  style={{ border: "0" }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
         </div>
       </div>
     </section>

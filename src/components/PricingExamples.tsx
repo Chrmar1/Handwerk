@@ -16,7 +16,8 @@ const PricingExamples = () => {
         "Fugenabdichtung"
       ],
       popular: false,
-      gradient: "from-blue-500 to-blue-600"
+      gradient: "from-blue-500 to-blue-600",
+      emoji: "🏡" // neues Feld
     },
     {
       title: "Kunstrasen",
@@ -30,7 +31,8 @@ const PricingExamples = () => {
         "Bürstenbehandlung"
       ],
       popular: true,
-      gradient: "from-green-500 to-green-600"
+      gradient: "from-green-500 to-green-600",
+      emoji: "🌿"
     },
     {
       title: "Kleinreparaturen",
@@ -43,16 +45,17 @@ const PricingExamples = () => {
         "Gewährleistung"
       ],
       popular: false,
-      gradient: "from-orange-500 to-orange-600"
+      gradient: "from-orange-500 to-orange-600",
+      emoji: "🔨"
     }
   ];
 
   return (
-    <section className="py-20 bg-background">
+    <section id="services" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
-            Preisbeispiele
+            Leistungen
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Transparente Preise für alle unsere Hauptleistungen
@@ -75,8 +78,10 @@ const PricingExamples = () => {
                 )}
 
                 <CardHeader className="text-center pb-4">
-                  <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${example.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <CheckCircle className="h-8 w-8 text-white" />
+                  <div
+                    className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${example.gradient} flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    {example.emoji}
                   </div>
                   <CardTitle className="text-xl text-primary">
                     {example.title}
@@ -123,7 +128,6 @@ const PricingExamples = () => {
                     <div>
                       <h4 className="font-medium text-primary mb-2">Preisgestaltung</h4>
                       <ul className="space-y-1">
-                        <li>• Alle Preise verstehen sich zzgl. MwSt.</li>
                         <li>• Material wird nach Aufwand berechnet</li>
                         <li>• Anfahrtskosten je nach Zone</li>
                         <li>• Festpreise nach Besichtigung</li>
