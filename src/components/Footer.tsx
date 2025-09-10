@@ -17,21 +17,22 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <h3 className="text-2xl font-bold text-primary-foreground/80">
-            Christian Marks – Handwerk & Gartenservice
+              Christian Marks – Handwerk & Gartenservice
             </h3>
             <p className="text-primary-foreground/80 leading-relaxed">
               Ihr zuverlässiger Partner für Bodenverlegung, Kunstrasen und alle Handwerksarbeiten in Köln und Umgebung.
             </p>
             <div className="flex space-x-3">
               <Button
-                variant="outline" 
+                onClick={() => window.location.href = "https://www.instagram.com/cm.handwerk?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="}
+                variant="outline"
                 size="sm"
                 className="bg-primary-light/20 border-accent text-primary-foreground hover:bg-accent hover:text-accent-foreground"
               >
                 📷 Instagram
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 className="bg-primary-light/20 border-accent text-primary-foreground hover:bg-accent hover:text-accent-foreground"
               >
@@ -45,7 +46,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-primary-foreground/80">Leistungen</h3>
             <ul className="space-y-2">
               <li>
-                <button 
+                <button
                   onClick={() => scrollToSection("services")}
                   className="text-primary-foreground/80 hover:text-accent transition-colors"
                 >
@@ -53,7 +54,7 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => scrollToSection("services")}
                   className="text-primary-foreground/80 hover:text-accent transition-colors"
                 >
@@ -61,7 +62,7 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => scrollToSection("services")}
                   className="text-primary-foreground/80 hover:text-accent transition-colors"
                 >
@@ -69,7 +70,7 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => scrollToSection("services")}
                   className="text-primary-foreground/80 hover:text-accent transition-colors"
                 >
@@ -84,7 +85,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-primary-foreground/80">Service</h3>
             <ul className="space-y-2">
               <li>
-                <button 
+                <button
                   onClick={() => scrollToSection("booking")}
                   className="text-primary-foreground/80 hover:text-accent transition-colors"
                 >
@@ -92,7 +93,7 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => scrollToSection("contact")}
                   className="text-primary-foreground/80 hover:text-accent transition-colors"
                 >
@@ -100,7 +101,7 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => scrollToSection("projects")}
                   className="text-primary-foreground/80 hover:text-accent transition-colors"
                 >
@@ -108,7 +109,7 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => scrollToSection("testimonials")}
                   className="text-primary-foreground/80 hover:text-accent transition-colors"
                 >
@@ -128,7 +129,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-2">
                 <span>📞</span>
-                <a 
+                <a
                   href="tel:+491733425935"
                   className="text-primary-foreground/80 hover:text-accent transition-colors"
                 >
@@ -137,7 +138,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-2">
                 <span>✉️</span>
-                <a 
+                <a
                   className="text-primary-foreground/80 hover:text-accent transition-colors break-all"
                 >
                   christian.marks@gmx.de
@@ -171,7 +172,7 @@ const Footer = () => {
               </button>
             </div>
           </div>
-          <div className="text-primary-foreground/60 flex justify-center mt-10">
+          <div onClick={() => window.location.href = "https://www.teksign.de"} className="text-primary-foreground/60 flex justify-center mt-10">
             Created by Teksign
           </div>
         </div>

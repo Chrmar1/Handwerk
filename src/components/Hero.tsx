@@ -18,7 +18,8 @@ const Hero = () => {
         <div className="absolute bottom-20 right-10 text-3xl">🔧</div>
       </div>
 
-      <div className="container mx-auto px-4 py-20 text-center relative z-10">
+      <div className="container mx-auto px-4 pt-32 pb-20 text-center relative z-10">
+
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold text-primary mb-6 animate-in slide-in-from-bottom-10 duration-1000">
             Ihr Profi für Bodenverlegung in Köln

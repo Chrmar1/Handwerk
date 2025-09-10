@@ -32,9 +32,9 @@ const Header = () => {
 
   const navItems = [
     { id: "home", label: "Start" },
-    { id: "services", label: "Leistungen" },
     { id: "projects", label: "Projekte" },
     { id: "testimonials", label: "Bewertungen" },
+    { id: "services", label: "Leistungen" },
     { id: "booking", label: "Termin" },
     { id: "contact", label: "Kontakt" },
   ];

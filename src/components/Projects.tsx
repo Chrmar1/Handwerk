@@ -7,6 +7,18 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ReactCompareSlider, ReactCompareSliderImage } from "react-compare-slider";
+import KunstrasenVorher from "../assets/KunstrasenVorher.jpeg"
+import KunstrasenNachher from "../assets/KunstrasenNachher.jpeg"
+import BadezimmerVorher from "../assets/BadezimmerVorher.jpeg"
+import BadezimmerNachher from "../assets/BadezimmerNachher.jpeg"
+import LaminatVorher from "../assets/LaminatVorher.jpeg"
+import LaminatNachher from "../assets/LaminatNachher.jpeg"
+import WandVorher from "../assets/WandVorher.jpeg"
+import WandNachher from "../assets/WandNachher.png"
+import AmaturNachher from "../assets/AmaturNachher.jpeg"
+import AmaturVorher from "../assets/AmaturVorher.jpeg"
+import KücheNachher from "../assets/KücheNachher.jpeg"
+import KücheVorher from "../assets/KücheVorher.jpeg"
 
 const Projects = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -19,9 +31,9 @@ const Projects = () => {
       description: "Moderne Laminatverlegung in Köln-Innenstadt",
       category: "Laminat",
       beforeImage:
-        "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80", // Beispielbild vorher
+        LaminatVorher,
       afterImage:
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80", // Beispielbild nachher
+        LaminatNachher,
     },
     {
       icon: "🌿",
@@ -29,9 +41,9 @@ const Projects = () => {
       description: "Komplette Gartengestaltung mit Kunstrasen",
       category: "Kunstrasen",
       beforeImage:
-        "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=80",
+        KunstrasenVorher,
       afterImage:
-        "https://images.unsplash.com/photo-1596547606019-7fc9b6d5ddbf?auto=format&fit=crop&w=800&q=80",
+        KunstrasenNachher,
     },
     {
       icon: "🔨",
@@ -39,9 +51,39 @@ const Projects = () => {
       description: "Komplette Badsanierung mit Fliesenarbeiten",
       category: "Sanierung",
       beforeImage:
-        "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=800&q=80",
+        BadezimmerVorher,
       afterImage:
-        "https://images.unsplash.com/photo-1615873968403-89a62f834f08?auto=format&fit=crop&w=800&q=80",
+        BadezimmerNachher,
+    },
+    {
+      icon: "🧰",
+      title: "Wand-Sanierung",
+      description: "Tapeten sauber abgezogen und die Wand gestrichen",
+      category: "Sanierung",
+      beforeImage:
+        WandVorher,
+      afterImage:
+        WandNachher,
+    },
+    {
+      icon: "🔩",
+      title: "Amatur-Austausch",
+      description: "Altes Wasserhahn wurde durch neues ersetzt",
+      category: "Sanierung",
+      beforeImage:
+        AmaturVorher,
+      afterImage:
+        AmaturNachher,
+    },
+    {
+      icon: "🔧",
+      title: "Küchenmontage",
+      description: "Küchenmontage inkl. Wasser und Abwasseranschluss",
+      category: "Sanierung",
+      beforeImage:
+        KücheVorher,
+      afterImage:
+        KücheNachher,
     },
   ];
 
@@ -74,9 +116,8 @@ const Projects = () => {
 
                 {/* Overlay */}
                 <div
-                  className={`absolute inset-0 bg-primary/90 flex flex-col justify-center items-center text-white transition-opacity duration-300 ${
-                    hoveredIndex === index ? "opacity-100" : "opacity-0"
-                  }`}
+                  className={`absolute inset-0 bg-primary/90 flex flex-col justify-center items-center text-white transition-opacity duration-300 ${hoveredIndex === index ? "opacity-100" : "opacity-0"
+                    }`}
                 >
                   <h3 className="text-xl font-bold mb-2 text-center px-4">
                     {project.title}
@@ -118,8 +159,9 @@ const Projects = () => {
       </div>
 
       {/* Dialog für Vorher/Nachher */}
+      {/* Dialog für Vorher/Nachher */}
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-        <DialogContent className="max-w-3xl p-6">
+        <DialogContent className="max-w-4xl max-h-[90vh] p-6 flex flex-col">
           {selectedProject && (
             <>
               <DialogHeader>
@@ -128,19 +170,28 @@ const Projects = () => {
                 </DialogTitle>
                 <p className="text-muted-foreground">{selectedProject.description}</p>
               </DialogHeader>
-              <div className="mt-6 rounded-xl overflow-hidden shadow-lg border border-border/50">
+
+              {/* Bildbereich */}
+              <div className="mt-6 flex-1 flex items-center justify-center rounded-xl overflow-hidden shadow-lg border border-border/50">
                 <ReactCompareSlider
+                  className="w-full max-h-[70vh]"
                   itemOne={
-                    <ReactCompareSliderImage
-                      src={selectedProject.beforeImage}
-                      alt="Vorher"
-                    />
+                    <div className="w-full h-full flex items-center justify-center bg-black">
+                      <img
+                        src={selectedProject.beforeImage}
+                        alt="Vorher"
+                        className="max-h-[70vh] w-auto object-contain"
+                      />
+                    </div>
                   }
                   itemTwo={
-                    <ReactCompareSliderImage
-                      src={selectedProject.afterImage}
-                      alt="Nachher"
-                    />
+                    <div className="w-full h-full flex items-center justify-center bg-black">
+                      <img
+                        src={selectedProject.afterImage}
+                        alt="Nachher"
+                        className="max-h-[70vh] w-auto object-contain"
+                      />
+                    </div>
                   }
                 />
               </div>
