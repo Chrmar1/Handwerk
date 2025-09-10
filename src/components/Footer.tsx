@@ -1,4 +1,7 @@
 import { Button } from "@/components/ui/button";
+import Agb from "../assets/AGB.pdf"
+import Impressum from "../assets/Impressum.pdf"
+import Datenschutz from "../assets/Datenschutzerklärung.pdf"
 
 const Footer = () => {
   const scrollToSection = (sectionId: string) => {
@@ -32,7 +35,7 @@ const Footer = () => {
                 📷 Instagram
               </Button>
               <Button
-                onClick={() => window.open(`https://wa.me/492211234567`)}
+                onClick={() => window.open(`https://wa.me/491733425935`)}
                 variant="outline"
                 size="sm"
                 className="bg-primary-light/20 border-accent text-primary-foreground hover:bg-accent hover:text-accent-foreground"
@@ -162,15 +165,18 @@ const Footer = () => {
               &copy; {currentYear} Christian Marks – Handwerk & Gartenservice. Alle Rechte vorbehalten.
             </p>
             <div className="flex space-x-6 text-sm">
-              <button className="text-primary-foreground/60 hover:text-accent transition-colors">
+              <a href={Impressum}
+                target="_blank" className="text-primary-foreground/60 hover:text-accent transition-colors">
                 Impressum
-              </button>
-              <button className="text-primary-foreground/60 hover:text-accent transition-colors">
+              </a>
+              <a href={Datenschutz}
+                  target="_blank"className="text-primary-foreground/60 hover:text-accent transition-colors">
                 Datenschutz
-              </button>
-              <button className="text-primary-foreground/60 hover:text-accent transition-colors">
+              </a>
+              <a href={Agb}
+                  target="_blank" className="text-primary-foreground/60 hover:text-accent transition-colors">
                 AGB
-              </button>
+              </a>
             </div>
           </div>
           <div onClick={() => window.location.href = "https://www.teksign.de"} className="text-primary-foreground/60 flex justify-center mt-10">

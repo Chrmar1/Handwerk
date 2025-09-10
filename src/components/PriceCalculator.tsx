@@ -110,7 +110,7 @@ const PriceCalculator = () => {
   const sendWhatsApp = () => {
     const price = calculatePrice();
     const message = `Hallo! Ich interessiere mich für eine Preisschätzung: ~${price.toFixed(0)} € für ${service} auf ${area}m². Können wir einen Termin vereinbaren?`;
-    window.open(`https://wa.me/492211234567?text=${encodeURIComponent(message)}`);
+    window.open(`https://wa.me/491733425935?text=${encodeURIComponent(message)}`);
   };
 
   const calculatedPrice = calculatePrice();

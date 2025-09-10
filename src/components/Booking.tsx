@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar, Clock } from "lucide-react";
+import emailjs from "emailjs-com";
 
 const Booking = () => {
   const [selectedDate, setSelectedDate] = useState<string>("");
@@ -21,7 +22,7 @@ const Booking = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.phone || !formData.service) {
       toast({
         title: "Fehler",
@@ -31,13 +32,26 @@ const Booking = () => {
       return;
     }
 
-    // Simulate form submission
-    setTimeout(() => {
+    // ✨ EmailJS senden
+    emailjs.send(
+      "service_xxx",        // Dein Service ID (aus EmailJS Dashboard)
+      "template_xxx",       // Dein Template ID
+      {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        message: formData.message,
+        selectedDate: selectedDate || "Kein Termin ausgewählt"
+      },
+      "publicKey_xxx"       // Dein Public Key
+    )
+    .then(() => {
       toast({
         title: "Anfrage gesendet!",
         description: "Vielen Dank! Wir melden uns innerhalb von 24 Stunden bei Ihnen.",
       });
-      
+
       // Reset form
       setFormData({
         name: "",
@@ -47,29 +61,35 @@ const Booking = () => {
         message: ""
       });
       setSelectedDate("");
-    }, 500);
+    })
+    .catch(() => {
+      toast({
+        title: "Fehler",
+        description: "Leider konnte die Anfrage nicht gesendet werden. Bitte versuchen Sie es später erneut.",
+        variant: "destructive"
+      });
+    });
   };
 
   const generateCalendarDays = () => {
     const days = [];
     const today = new Date();
-    
-    // Generate next 28 days
+
     for (let i = 0; i < 28; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() + i);
-      
+
       const dayOfWeek = date.getDay();
-      const isWeekend = dayOfWeek === 1 && 0; // Sunday
+      const isWeekend = dayOfWeek === 1 && 0; // Sonntag deaktivieren
       const isAvailable = !isWeekend;
-      
+
       days.push({
         date: date.getDate(),
-        fullDate: date.toLocaleDateString('de-DE'),
+        fullDate: date.toLocaleDateString("de-DE"),
         isAvailable
       });
     }
-    
+
     return days;
   };
 
