@@ -188,23 +188,22 @@ const Projects = () => {
               onMouseLeave={() => setHoveredIndex(null)}
               onClick={() => setSelectedProject(project)}
             >
-              <div className="relative h-48 bg-gradient-accent flex items-center justify-center overflow-hidden">
-                <div className="text-8xl opacity-80 transition-transform duration-300 group-hover:scale-110">
-                  {project.icon}
-                </div>
+              {/* Nachher-Bild als Hintergrund */}
+              <div className="relative h-48 flex items-center justify-center overflow-hidden">
+                <img
+                  src={project.afterImage}
+                  alt={project.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
 
                 {/* Overlay */}
                 <div
-                  className={`absolute inset-0 bg-primary/90 flex flex-col justify-center items-center text-white transition-opacity duration-300 ${hoveredIndex === index ? "opacity-100" : "opacity-0"
+                  className={`absolute inset-0 bg-black/60 flex flex-col justify-center items-center text-white text-center p-4 transition-opacity duration-300 ${hoveredIndex === index ? "opacity-100" : "opacity-0"
                     }`}
                 >
-                  <h3 className="text-xl font-bold mb-2 text-center px-4">
-                    {project.title}
-                  </h3>
-                  <p className="text-center px-4 text-primary-foreground/90">
-                    {project.description}
-                  </p>
-                  <span className="mt-3 px-3 py-1 bg-accent text-accent-foreground rounded-full text-sm font-medium">
+                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                  <p className="text-sm mb-2">{project.description}</p>
+                  <span className="mt-2 px-3 py-1 bg-accent text-accent-foreground rounded-full text-sm font-medium">
                     {project.category}
                   </span>
                 </div>
