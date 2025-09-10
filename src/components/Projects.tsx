@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
@@ -19,11 +18,50 @@ import AmaturNachher from "../assets/AmaturNachher.jpeg"
 import AmaturVorher from "../assets/AmaturVorher.jpeg"
 import KücheNachher from "../assets/KücheNachher.jpeg"
 import KücheVorher from "../assets/KücheVorher.jpeg"
+import { useEffect, useState } from "react";
+
 
 const Projects = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedProject, setSelectedProject] = useState<any>(null);
 
+
+  const preloadImage = (src: string) => {
+    const img = new Image();
+    img.src = src;
+  };
+
+  const Projects = () => {
+    useEffect(() => {
+      const imageUrls = [
+        // Laminat
+        require("../assets/LaminatVorher.jpeg"),
+        require("../assets/LaminatNachher.jpeg"),
+
+        // Kunstrasen
+        require("../assets/KunstrasenVorher.jpeg"),
+        require("../assets/KunstrasenNachher.jpeg"),
+
+        // Badezimmer
+        require("../assets/BadezimmerVorher.jpeg"),
+        require("../assets/BadezimmerNachher.jpeg"),
+
+        // Wand
+        require("../assets/WandVorher.jpeg"),
+        require("../assets/WandNachher.png"),
+
+        // Amatur
+        require("../assets/AmaturVorher.jpeg"),
+        require("../assets/AmaturNachher.jpeg"),
+
+        // Küche
+        require("../assets/KücheVorher.jpeg"),
+        require("../assets/KücheNachher.jpeg"),
+      ];
+
+      imageUrls.forEach((src) => preloadImage(src as string));
+    }, []);
+  }
   const projects = [
     {
       icon: "🏡",
@@ -86,6 +124,47 @@ const Projects = () => {
         KücheNachher,
     },
   ];
+
+  const ImageSlideshow = ({ before, after }: { before: string; after: string }) => {
+    const [showBefore, setShowBefore] = useState(true);
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setShowBefore((prev) => !prev);
+      }, 3000); // wechselt alle 3 Sekunden
+      return () => clearInterval(interval);
+    }, []);
+
+    return (
+      <div className="mt-6 flex-1 flex flex-col items-center justify-center">
+        {/* Label */}
+        <div className="mb-2 text-lg font-semibold text-primary">
+          {showBefore ? "Vorher" : "Nachher"}
+        </div>
+
+        {/* Bild */}
+        <div className="flex-1 flex items-center justify-center rounded-xl overflow-hidden shadow-lg border border-border/50 bg-black w-full">
+          <img
+            src={showBefore ? before : after}
+            alt={showBefore ? "Vorher" : "Nachher"}
+            className="max-h-[70vh] w-auto object-contain transition-opacity duration-700"
+          />
+        </div>
+
+        {/* Punkte-Navigation */}
+        <div className="mt-4 flex space-x-3">
+          <span
+            className={`w-3 h-3 rounded-full ${showBefore ? "bg-primary scale-125" : "bg-muted"
+              } transition-all duration-300`}
+          ></span>
+          <span
+            className={`w-3 h-3 rounded-full ${!showBefore ? "bg-primary scale-125" : "bg-muted"
+              } transition-all duration-300`}
+          ></span>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <section id="projects" className="py-20 bg-muted/30">
@@ -159,7 +238,6 @@ const Projects = () => {
       </div>
 
       {/* Dialog für Vorher/Nachher */}
-      {/* Dialog für Vorher/Nachher */}
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
         <DialogContent className="max-w-4xl max-h-[90vh] p-6 flex flex-col">
           {selectedProject && (
@@ -171,34 +249,16 @@ const Projects = () => {
                 <p className="text-muted-foreground">{selectedProject.description}</p>
               </DialogHeader>
 
-              {/* Bildbereich */}
-              <div className="mt-6 flex-1 flex items-center justify-center rounded-xl overflow-hidden shadow-lg border border-border/50">
-                <ReactCompareSlider
-                  className="w-full max-h-[70vh]"
-                  itemOne={
-                    <div className="w-full h-full flex items-center justify-center bg-black">
-                      <img
-                        src={selectedProject.beforeImage}
-                        alt="Vorher"
-                        className="max-h-[70vh] w-auto object-contain"
-                      />
-                    </div>
-                  }
-                  itemTwo={
-                    <div className="w-full h-full flex items-center justify-center bg-black">
-                      <img
-                        src={selectedProject.afterImage}
-                        alt="Nachher"
-                        className="max-h-[70vh] w-auto object-contain"
-                      />
-                    </div>
-                  }
-                />
-              </div>
+              {/* Bild-Slideshow */}
+              <ImageSlideshow
+                before={selectedProject.beforeImage}
+                after={selectedProject.afterImage}
+              />
             </>
           )}
         </DialogContent>
       </Dialog>
+
     </section>
   );
 };

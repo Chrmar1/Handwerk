@@ -21,25 +21,25 @@ const Hero = () => {
       <div className="container mx-auto px-4 pt-32 pb-20 text-center relative z-10">
 
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold text-primary mb-6 animate-in slide-in-from-bottom-10 duration-1000">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-primary mb-6 animate-in slide-in-from-bottom-10 duration-1000 leading-snug break-words px-4">
             Ihr Profi für Bodenverlegung in Köln
           </h1>
-          
+
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed animate-in slide-in-from-bottom-10 duration-1000 delay-300">
-            Laminat, Vinyl, Kunstrasen und alle Handwerksarbeiten – professionell, zuverlässig und zu fairen Preisen. 
+            Laminat, Vinyl, Kunstrasen und alle Handwerksarbeiten – professionell, zuverlässig und zu fairen Preisen.
             Tätig in Köln und Umgebung.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-in slide-in-from-bottom-10 duration-1000 delay-600">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-gradient-primary hover:shadow-glow transition-all duration-300 transform hover:-translate-y-1"
               onClick={() => scrollToSection("booking")}
             >
               Jetzt Termin vereinbaren
             </Button>
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:-translate-y-1"
               onClick={() => scrollToSection("contact")}

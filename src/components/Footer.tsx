@@ -32,6 +32,7 @@ const Footer = () => {
                 📷 Instagram
               </Button>
               <Button
+                onClick={() => window.open(`https://wa.me/492211234567`)}
                 variant="outline"
                 size="sm"
                 className="bg-primary-light/20 border-accent text-primary-foreground hover:bg-accent hover:text-accent-foreground"
