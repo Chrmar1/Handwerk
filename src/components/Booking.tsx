@@ -20,55 +20,51 @@ const Booking = () => {
   });
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.phone || !formData.service) {
-      toast({
-        title: "Fehler",
-        description: "Bitte füllen Sie alle Pflichtfelder aus.",
-        variant: "destructive"
-      });
-      return;
-    }
+    // 👉 Debug-Ausgabe in der Browser-Konsole
+    console.log({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      service: formData.service,
+      message: formData.message,
+      selectedDate,
+    });
 
-    // ✨ EmailJS senden
-    emailjs.send(
-      "service_xxx",        // Dein Service ID (aus EmailJS Dashboard)
-      "template_xxx",       // Dein Template ID
-      {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        service: formData.service,
-        message: formData.message,
-        selectedDate: selectedDate || "Kein Termin ausgewählt"
-      },
-      "publicKey_xxx"       // Dein Public Key
-    )
-    .then(() => {
+    try {
+      await emailjs.send(
+        "service_e8szb3b",
+        "template_fpe4rzd",
+        {
+          name: formData.name || "Nicht angegeben",
+          email: formData.email || "Nicht angegeben",
+          phone: formData.phone || "Nicht angegeben",
+          service: formData.service || "Nicht angegeben",
+          message: formData.message || "Keine Nachricht",
+          selectedDate: selectedDate || "Kein Wunschtermin",
+        },
+        "SlL-xcy1arR25xEOB"
+      );
+
+      // Erfolgsmeldung
       toast({
         title: "Anfrage gesendet!",
         description: "Vielen Dank! Wir melden uns innerhalb von 24 Stunden bei Ihnen.",
       });
 
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        service: "",
-        message: ""
-      });
+      // Reset
+      setFormData({ name: "", email: "", phone: "", service: "", message: "" });
       setSelectedDate("");
-    })
-    .catch(() => {
+    } catch (error) {
+      console.error("EmailJS Error:", error);
       toast({
         title: "Fehler",
-        description: "Leider konnte die Anfrage nicht gesendet werden. Bitte versuchen Sie es später erneut.",
-        variant: "destructive"
+        description: "Beim Senden ist ein Problem aufgetreten. Bitte erneut versuchen.",
+        variant: "destructive",
       });
-    });
+    }
   };
 
   const generateCalendarDays = () => {
@@ -125,7 +121,7 @@ const Booking = () => {
                       type="text"
                       placeholder="Ihr vollständiger Name"
                       value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="border-border/50"
                       required
                     />
@@ -139,7 +135,7 @@ const Booking = () => {
                       type="email"
                       placeholder="ihre.email@beispiel.de"
                       value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="border-border/50"
                       required
                     />
@@ -156,7 +152,7 @@ const Booking = () => {
                       type="tel"
                       placeholder="0221 123456789"
                       value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="border-border/50"
                       required
                     />
@@ -165,14 +161,14 @@ const Booking = () => {
                     <Label htmlFor="service" className="text-primary font-medium">
                       Gewünschte Leistung <span className="text-destructive">*</span>
                     </Label>
-                    <Select value={formData.service} onValueChange={(value) => setFormData({...formData, service: value})}>
+                    <Select value={formData.service} onValueChange={(value) => setFormData({ ...formData, service: value })}>
                       <SelectTrigger className="border-border/50">
                         <SelectValue placeholder="Bitte wählen..." />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="laminat">Laminat verlegen</SelectItem>
                         <SelectItem value="vinyl">Vinyl verlegen</SelectItem>
-                        <SelectItem value="kunstrasen">Kunstrasen installieren</SelectItem>
+                        <SelectItem value="kunstrasen">Kunstrasen verlegen</SelectItem>
                         <SelectItem value="handwerk">Allgemeine Handwerksarbeiten</SelectItem>
                         <SelectItem value="beratung">Kostenlose Beratung</SelectItem>
                       </SelectContent>
@@ -190,15 +186,15 @@ const Booking = () => {
                     value={formData.message + (selectedDate ? `\n\nWunschtermin: ${selectedDate}` : "")}
                     onChange={(e) => {
                       const value = e.target.value.replace(/\n\nWunschtermin:.*/, "");
-                      setFormData({...formData, message: value});
+                      setFormData({ ...formData, message: value });
                     }}
                     rows={4}
                     className="border-border/50"
                   />
                 </div>
 
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
                   size="lg"
                 >
@@ -227,7 +223,7 @@ const Booking = () => {
                   </div>
                 ))}
               </div>
-              
+
               <div className="grid grid-cols-7 gap-2 mb-6">
                 {calendarDays.map((day, index) => (
                   <button
@@ -236,8 +232,8 @@ const Booking = () => {
                     disabled={!day.isAvailable}
                     className={`
                       aspect-square flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200
-                      ${day.isAvailable 
-                        ? 'bg-muted hover:bg-accent hover:text-accent-foreground cursor-pointer' 
+                      ${day.isAvailable
+                        ? 'bg-muted hover:bg-accent hover:text-accent-foreground cursor-pointer'
                         : 'bg-muted/50 text-muted-foreground cursor-not-allowed'
                       }
                       ${selectedDate === day.fullDate ? 'bg-primary text-primary-foreground' : ''}

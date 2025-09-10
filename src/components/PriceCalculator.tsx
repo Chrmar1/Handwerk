@@ -143,9 +143,9 @@ const PriceCalculator = () => {
                       <SelectValue placeholder="Wählen..." />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="laminat">Laminat - Vinyl</SelectItem>
-                      <SelectItem value="kleinreparatur">Kleinreperatur</SelectItem>
-                      <SelectItem value="kunstrasen">Kunstrasen</SelectItem>
+                      <SelectItem value="Laminat">Laminat - Vinyl</SelectItem>
+                      <SelectItem value="Kleinreparatur">Kleinreperatur</SelectItem>
+                      <SelectItem value="Kunstrasen">Kunstrasen</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -224,7 +224,7 @@ const PriceCalculator = () => {
                       onCheckedChange={(checked) => setOldFlooringRemoval(checked === true)}
                     />
                     <Label htmlFor="oldFlooring" className="cursor-pointer">
-                      Altbelag entfernen & entsorgen
+                      Altbelag (Laminat, Vinyl, Teppich) entfernen 
                     </Label>
                   </div>
 
@@ -262,7 +262,7 @@ const PriceCalculator = () => {
                       ~{calculatedPrice.toFixed(0)} €
                     </div>
                     <p className="text-sm opacity-90">
-                      inkl. Reparatur & Anfahrt
+                      inkl. Anfahrt
                     </p>
                   </CardContent>
                 </Card>
@@ -324,15 +324,15 @@ const PriceCalculator = () => {
                     <div className="text-muted-foreground">Ø 25/45 €/m²</div>
                   </div>
                   <div className="bg-muted p-3 rounded-lg">
-                    <div className="font-medium">Zone A</div>
+                    <div className="font-medium">Zone A (0-10km)</div>
                     <div className="text-muted-foreground">8€</div>
                   </div>
                   <div className="bg-muted p-3 rounded-lg">
-                    <div className="font-medium">Zone B</div>
+                    <div className="font-medium">Zone B (10-30km)</div>
                     <div className="text-muted-foreground">15€</div>
                   </div>
                   <div className="bg-muted p-3 rounded-lg">
-                    <div className="font-medium">Zone C</div>
+                    <div className="font-medium">Zone C {"(<30km)"} </div>
                     <div className="text-muted-foreground">n. V.</div>
                   </div>
                 </div>
