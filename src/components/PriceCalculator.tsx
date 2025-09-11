@@ -16,76 +16,63 @@ const PriceCalculator = () => {
   const [oldFlooringRemoval, setOldFlooringRemoval] = useState(false);
   const [tileRemoval, setTileRemoval] = useState(false);
   const [leveling, setLeveling] = useState("");
+  const [showPrice, setShowPrice] = useState(false);
+
   const { toast } = useToast();
 
   const baseRates = {
     laminat: 14.5,
-    kleinreparatur: 49,
-    kunstrasen: 35.5
+    Reparatur: 49,
+    kunstrasen: 35.5,
   };
 
   const zoneRates = {
     A: 8,
     B: 15,
-    C: 0 // nach Vereinbarung
+    C: 0,
   };
 
   const additionalRates = {
     oldFlooring: 8,
     tiles: 10,
     leveling5mm: 25,
-    leveling10mm: 45
+    leveling10mm: 45,
   };
 
   const calculatePrice = () => {
-    if (!service || !zone) return 0; // Fläche NICHT mehr für alle zwingend
+    if (!service || !zone) return 0;
 
     let total = 0;
     const areaNum = parseFloat(area) || 0;
 
-    // Base service cost
-    if (service === "kleinreparatur") {
-      total += baseRates.kleinreparatur; // immer 49 €, Fläche irrelevant
-    } else if (service in baseRates) {
-      if (!area) return 0; // Fläche wird nur hier verlangt
-      total += baseRates[service as keyof typeof baseRates] * areaNum;
+    if (service === "Reparatur") {
+      total += baseRates.Reparatur;
+    } else if (service.toLowerCase() in baseRates) {
+      if (!area) return 0;
+      total += baseRates[service.toLowerCase() as keyof typeof baseRates] * areaNum;
     }
 
-    // Effort multiplier (außer bei Kleinreparatur)
-    if (service !== "kleinreparatur" && effort === "hoch") {
+    if (service !== "Reparatur" && effort === "hoch") {
       total *= 1.2;
     }
 
-    // Zone cost
     if (zone !== "C") {
       total += zoneRates[zone as keyof typeof zoneRates];
     }
 
-    // Additional services (nur wenn Fläche existiert)
     if (areaNum > 0) {
-      if (oldFlooringRemoval) {
-        total += additionalRates.oldFlooring * areaNum;
-      }
-      if (tileRemoval) {
-        total += additionalRates.tiles * areaNum;
-      }
-      if (leveling === "5mm") {
-        total += additionalRates.leveling5mm * areaNum;
-      }
-      if (leveling === "10mm") {
-        total += additionalRates.leveling10mm * areaNum;
-      }
+      if (oldFlooringRemoval) total += additionalRates.oldFlooring * areaNum;
+      if (tileRemoval) total += additionalRates.tiles * areaNum;
+      if (leveling === "5mm") total += additionalRates.leveling5mm * areaNum;
+      if (leveling === "10mm") total += additionalRates.leveling10mm * areaNum;
     }
 
-    // Minimum repair cost
     if (total < 49) {
       total = 49;
     }
 
     return total;
   };
-
-
 
   const resetCalculator = () => {
     setService("");
@@ -95,6 +82,7 @@ const PriceCalculator = () => {
     setOldFlooringRemoval(false);
     setTileRemoval(false);
     setLeveling("");
+    setShowPrice(false);
   };
 
   const copyToClipboard = () => {
@@ -109,11 +97,18 @@ const PriceCalculator = () => {
 
   const sendWhatsApp = () => {
     const price = calculatePrice();
-    const message = `Hallo! Ich interessiere mich für eine Preisschätzung: ~${price.toFixed(0)} € für ${service} auf ${area}m². Können wir einen Termin vereinbaren?`;
+    const message = `Hallo! Ich interessiere mich für eine Preisschätzung: ~${price.toFixed(
+      0
+    )} € für ${service} auf ${area}m². Können wir einen Termin vereinbaren?`;
     window.open(`https://wa.me/491733425935?text=${encodeURIComponent(message)}`);
   };
 
   const calculatedPrice = calculatePrice();
+
+  const isFormValid =
+    service &&
+    zone &&
+    (service === "Reparatur" || (!!area && parseFloat(area) > 0));
 
   return (
     <section className="py-20 bg-background">
@@ -127,219 +122,205 @@ const PriceCalculator = () => {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto space-y-10">
+          {/* Richtwerte Tabelle 1:1 übernommen */}
+          {/* Richtwerte Tabelle optimiert */}
+          <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-card">
+            <CardHeader>
+              <CardTitle className="text-2xl text-primary">Richtwerte</CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="bg-muted p-4 rounded-lg shadow-sm">
+                  <div className="font-medium">Laminat/Vinyl</div>
+                  <div className="text-muted-foreground">ab 14,50 €/m²</div>
+                </div>
+                <div className="bg-muted p-4 rounded-lg shadow-sm">
+                  <div className="font-medium">Kunstrasen</div>
+                  <div className="text-muted-foreground">ab 35,50 €/m²</div>
+                </div>
+                <div className="bg-muted p-4 rounded-lg shadow-sm">
+                  <div className="font-medium">Reparatur & Renovierung</div>
+                  <div className="text-muted-foreground">ab 49 €</div>
+                </div>
+                <div className="bg-muted p-4 rounded-lg shadow-sm">
+                  <div className="font-medium">Altbelag entfernen</div>
+                  <div className="text-muted-foreground">Ø 8 €/m²</div>
+                </div>
+                <div className="bg-muted p-4 rounded-lg shadow-sm">
+                  <div className="font-medium">Fliesen entfernen</div>
+                  <div className="text-muted-foreground">Ø 10 €/m²</div>
+                </div>
+                <div className="bg-muted p-4 rounded-lg shadow-sm">
+                  <div className="font-medium">Nivellieren bis 5/10 mm</div>
+                  <div className="text-muted-foreground">Ø 25/45 €/m²</div>
+                </div>
+                <div className="bg-muted p-4 rounded-lg shadow-sm">
+                  <div className="font-medium">Zone A (0-10km)</div>
+                  <div className="text-muted-foreground">8€</div>
+                </div>
+                <div className="bg-muted p-4 rounded-lg shadow-sm">
+                  <div className="font-medium">Zone B (10-30km)</div>
+                  <div className="text-muted-foreground">15€</div>
+                </div>
+                <div className="bg-muted p-4 rounded-lg shadow-sm">
+                  <div className="font-medium">Zone C {"(<30km)"} </div>
+                  <div className="text-muted-foreground">n. V.</div>
+                </div>
+              </div>
+              <div className="mt-6 text-xs text-muted-foreground text-center">
+                <strong>Zonenpreise:</strong> Zone A: 8 € • Zone B: 15 € • Zone C: nach Vereinbarung
+              </div>
+            </CardContent>
+          </Card>
+
+
+          {/* Rechner */}
           <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-card">
             <CardHeader>
               <CardTitle className="text-2xl text-primary">Konfiguration</CardTitle>
-              <p className="mt-4 text-xs text-red-700">Wir arbeiten mit Pauschalpreisen bei unter 10m²</p>
+              <p className="mt-4 text-xs text-red-700">
+                Wir arbeiten mit Pauschalpreisen bei unter 10m²
+              </p>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {/* Service Selection */}
-                <div className="space-y-2">
-                  <Label className="text-primary font-medium">Leistung</Label>
-                  <Select value={service} onValueChange={setService}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Wählen..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Laminat">Laminat - Vinyl</SelectItem>
-                      <SelectItem value="Kleinreparatur">Kleinreperatur</SelectItem>
-                      <SelectItem value="Kunstrasen">Kunstrasen</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Area Input */}
-                <div className="space-y-2">
-                  <Label className="text-primary font-medium">Fläche (m²)</Label>
-                  <Input
-                    type="text"
-                    inputMode="decimal"
-                    pattern="[0-9]*[.,]?[0-9]*"
-                    placeholder="z.B. 25,5"
-                    value={area}
-                    onChange={(e) => {
-                      let val = e.target.value;
-
-                      // Nur Zahlen + Komma/Punkt erlauben
-                      val = val.replace(/[^0-9.,]/g, "");
-
-                      // Erstes Komma in Punkt umwandeln (für parseFloat)
-                      val = val.replace(",", ".");
-
-                      // Nur positive Zahl zulassen
-                      if (val === "" || parseFloat(val) > 0) {
-                        setArea(val);
-                      }
-                    }}
-                  />
-
-                </div>
-
-                {/* Zone Selection */}
-                <div className="space-y-2">
-                  <Label className="text-primary font-medium">Zone</Label>
-                  <Select value={zone} onValueChange={setZone}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Wählen..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="A">Zone A (8 €)</SelectItem>
-                      <SelectItem value="B">Zone B (15 €)</SelectItem>
-                      <SelectItem value="C">Zone C (n. V.)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Effort Selection */}
-                <div className="space-y-2">
-                  <Label className="text-primary font-medium">Aufwand</Label>
-                  <Select
-                    value={effort}
-                    onValueChange={setEffort}
-                    disabled={service === "kleinreparatur"} // Deaktivieren
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Wählen..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="standard">Standard</SelectItem>
-                      <SelectItem value="hoch">Hoch (×1,2)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              {/* Service */}
+              <div className="space-y-2">
+                <Label>Leistung</Label>
+                <Select value={service} onValueChange={setService}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Bitte wählen" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Laminat">Laminat/Vinyl</SelectItem>
+                    <SelectItem value="Kunstrasen">Kunstrasen</SelectItem>
+                    <SelectItem value="Reparatur">Reparatur & Renovierung</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
-              {/* Additional Services */}
-              <div className="border-t pt-6">
-                <Label className="text-lg font-semibold text-primary mb-4 block">
-                  Zusatzarbeiten
-                </Label>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {/* Fläche */}
+              {service !== "Reparatur" && (
+                <div className="space-y-2">
+                  <Label>Fläche in m²</Label>
+                  <Input
+                    type="number"
+                    value={area}
+                    onChange={(e) => setArea(e.target.value)}
+                    placeholder="z. B. 25"
+                  />
+                </div>
+              )}
+
+              {/* Zone */}
+              <div className="space-y-2">
+                <Label>Zone</Label>
+                <Select value={zone} onValueChange={setZone}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Bitte wählen" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="A">Zone A</SelectItem>
+                    <SelectItem value="B">Zone B</SelectItem>
+                    <SelectItem value="C">Zone C (nach Vereinbarung)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Aufwand */}
+              {service !== "Reparatur" && (
+                <div className="space-y-2">
+                  <Label>Aufwand</Label>
+                  <Select value={effort} onValueChange={setEffort}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Bitte wählen" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="normal">Normal</SelectItem>
+                      <SelectItem value="hoch">Hoch</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+
+              {/* Zusatzoptionen */}
+              {service !== "Reparatur" && (
+                <>
                   <div className="flex items-center space-x-2">
                     <Checkbox
-                      id="oldFlooring"
                       checked={oldFlooringRemoval}
-                      onCheckedChange={(checked) => setOldFlooringRemoval(checked === true)}
+                      onCheckedChange={(c) => setOldFlooringRemoval(!!c)}
                     />
-                    <Label htmlFor="oldFlooring" className="cursor-pointer">
-                      Altbelag (Laminat, Vinyl, Teppich) entfernen 
-                    </Label>
+                    <Label>Alten Boden entfernen (+8 €/m²)</Label>
                   </div>
-
                   <div className="flex items-center space-x-2">
                     <Checkbox
-                      id="tiles"
                       checked={tileRemoval}
-                      onCheckedChange={(checked) => setTileRemoval(checked === true)}
+                      onCheckedChange={(c) => setTileRemoval(!!c)}
                     />
-                    <Label htmlFor="tiles" className="cursor-pointer">
-                      Alte Fliesen entfernen
-                    </Label>
+                    <Label>Fliesen entfernen (+10 €/m²)</Label>
                   </div>
-
                   <div className="space-y-2">
-                    <Label className="text-sm font-medium">Nivellieren/Spachteln</Label>
+                    <Label>Spachteln / Ausgleichsmasse</Label>
                     <Select value={leveling} onValueChange={setLeveling}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Auswählen..." />
+                        <SelectValue placeholder="Bitte wählen" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="5mm">bis 5 mm (25 €/m²)</SelectItem>
-                        <SelectItem value="10mm">bis 10 mm (45 €/m²)</SelectItem>
+                        <SelectItem value="none">Keine</SelectItem>
+                        <SelectItem value="5mm">bis 5mm (+25 €/m²)</SelectItem>
+                        <SelectItem value="10mm">bis 10mm (+45 €/m²)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
-                </div>
-              </div>
+                </>
+              )}
 
-              {/* Price Display */}
-              <div className="border-t pt-6">
-                <Card className="bg-gradient-accent text-white border-0">
-                  <CardContent className="p-6 text-center">
-                    <div className="text-3xl font-bold mb-2">
-                      ~{calculatedPrice.toFixed(0)} €
-                    </div>
-                    <p className="text-sm opacity-90">
-                      inkl. Anfahrt
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap gap-4 justify-center">
+              {/* Berechnen Button */}
+              <div className="flex justify-center">
                 <Button
-                  variant="outline"
-                  onClick={copyToClipboard}
-                  className="flex items-center gap-2"
+                  onClick={() => setShowPrice(true)}
+                  disabled={!isFormValid}
+                  className="bg-gradient-primary text-white"
                 >
-                  <Copy className="h-4 w-4" />
-                  Kopieren
-                </Button>
-                <Button
-                  onClick={sendWhatsApp}
-                  className="flex items-center gap-2 bg-gradient-primary hover:shadow-glow"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  Angebot per WhatsApp
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={resetCalculator}
-                  className="flex items-center gap-2"
-                >
-                  <RotateCcw className="h-4 w-4" />
-                  Zurücksetzen
+                  Berechnen
                 </Button>
               </div>
 
-              {/* Price Guidelines */}
-              <div className="border-t pt-6">
-                <h3 className="text-lg font-semibold text-primary mb-4">Richtsätze</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
-                  <div className="bg-muted p-3 rounded-lg">
-                    <div className="font-medium">Laminat/Vinyl</div>
-                    <div className="text-muted-foreground">ab 14,50 €/m²</div>
-                  </div>
-                  <div className="bg-muted p-3 rounded-lg">
-                    <div className="font-medium">Kunstrasen</div>
-                    <div className="text-muted-foreground">ab 35,50 €/m²</div>
-                  </div>
-                  <div className="bg-muted p-3 rounded-lg">
-                    <div className="font-medium">Reparatur</div>
-                    <div className="text-muted-foreground">ab 49 €</div>
-                  </div>
-                  <div className="bg-muted p-3 rounded-lg">
-                    <div className="font-medium">Altbelag entfernen</div>
-                    <div className="text-muted-foreground">Ø 8 €/m²</div>
-                  </div>
-                  <div className="bg-muted p-3 rounded-lg">
-                    <div className="font-medium">Fliesen entfernen</div>
-                    <div className="text-muted-foreground">Ø 10 €/m²</div>
-                  </div>
-                  <div className="bg-muted p-3 rounded-lg">
-                    <div className="font-medium">Nivellieren bis 5/10 mm</div>
-                    <div className="text-muted-foreground">Ø 25/45 €/m²</div>
-                  </div>
-                  <div className="bg-muted p-3 rounded-lg">
-                    <div className="font-medium">Zone A (0-10km)</div>
-                    <div className="text-muted-foreground">8€</div>
-                  </div>
-                  <div className="bg-muted p-3 rounded-lg">
-                    <div className="font-medium">Zone B (10-30km)</div>
-                    <div className="text-muted-foreground">15€</div>
-                  </div>
-                  <div className="bg-muted p-3 rounded-lg">
-                    <div className="font-medium">Zone C {"(<30km)"} </div>
-                    <div className="text-muted-foreground">n. V.</div>
-                  </div>
+              {/* Preis-Ausgabe */}
+              {showPrice && (
+                <div className="border-t pt-6">
+                  <Card className="bg-gradient-accent text-white border-0">
+                    <CardContent className="p-6 text-center">
+                      <div className="text-3xl font-bold mb-2">
+                        ~{calculatedPrice.toFixed(0)} €
+                      </div>
+                      <p className="text-sm opacity-90">inkl. Anfahrt</p>
+                    </CardContent>
+                  </Card>
                 </div>
-                <div className="mt-4 text-xs text-muted-foreground">
-                  <strong>Zonenpreise:</strong> Zone A: 8 € • Zone B: 15 € • Zone C: nach Vereinbarung
+              )}
+
+              {/* Aktionen */}
+              {showPrice && (
+                <div className="flex flex-wrap gap-4 justify-center">
+                  <Button variant="outline" onClick={copyToClipboard} className="flex items-center gap-2">
+                    <Copy className="h-4 w-4" />
+                    Kopieren
+                  </Button>
+                  <Button
+                    onClick={sendWhatsApp}
+                    className="flex items-center gap-2 bg-gradient-primary hover:shadow-glow"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    Angebot per WhatsApp
+                  </Button>
+                  <Button variant="outline" onClick={resetCalculator} className="flex items-center gap-2">
+                    <RotateCcw className="h-4 w-4" />
+                    Zurücksetzen
+                  </Button>
                 </div>
-              </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -349,3 +330,4 @@ const PriceCalculator = () => {
 };
 
 export default PriceCalculator;
+

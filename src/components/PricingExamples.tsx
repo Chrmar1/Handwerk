@@ -35,7 +35,7 @@ const PricingExamples = () => {
       emoji: "🌿"
     },
     {
-      title: "Kleinreparaturen",
+      title: "Reparatur & Renovierung",
       basePrice: "ab 49 €",
       description: "zzgl. Anfahrt & Material",
       features: [

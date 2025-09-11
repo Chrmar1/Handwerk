@@ -65,8 +65,8 @@ const Projects = () => {
   const projects = [
     {
       icon: "🏡",
-      title: "Laminat Wohnzimmer",
-      description: "Moderne Laminatverlegung in Köln-Innenstadt",
+      title: "Laminatboden im Wohnzimmer",
+      description: "Moderne Laminatverlegung",
       category: "Laminat",
       beforeImage:
         LaminatVorher,
@@ -75,7 +75,7 @@ const Projects = () => {
     },
     {
       icon: "🌿",
-      title: "Kunstrasen Garten",
+      title: "Kunstrasenverlegung im Garten",
       description: "Komplette Gartengestaltung mit Kunstrasen",
       category: "Kunstrasen",
       beforeImage:
@@ -85,7 +85,7 @@ const Projects = () => {
     },
     {
       icon: "🔨",
-      title: "Badezimmer-Sanierung",
+      title: "Badezimmersanierung",
       description: "Komplette Badsanierung mit Fliesenarbeiten",
       category: "Sanierung",
       beforeImage:
@@ -95,7 +95,7 @@ const Projects = () => {
     },
     {
       icon: "🧰",
-      title: "Wand-Sanierung",
+      title: "Wandsanierung",
       description: "Tapeten sauber abgezogen und die Wand gestrichen",
       category: "Sanierung",
       beforeImage:
@@ -105,8 +105,8 @@ const Projects = () => {
     },
     {
       icon: "🔩",
-      title: "Amatur-Austausch",
-      description: "Altes Wasserhahn wurde durch neues ersetzt",
+      title: "Amaturaustausch",
+      description: "Alter Wasserhahn wurde durch neuen Wasserhahn ersetzt",
       category: "Sanierung",
       beforeImage:
         AmaturVorher,
