@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
@@ -5,197 +6,224 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { ReactCompareSlider, ReactCompareSliderImage } from "react-compare-slider";
-import KunstrasenVorher from "../assets/KunstrasenVorher.jpeg"
-import KunstrasenNachher from "../assets/KunstrasenNachher.jpeg"
-import BadezimmerVorher from "../assets/BadezimmerVorher.jpeg"
-import BadezimmerNachher from "../assets/BadezimmerNachher.jpeg"
-import LaminatVorher from "../assets/LaminatVorher.jpeg"
-import LaminatNachher from "../assets/LaminatNachher.jpeg"
-import WandVorher from "../assets/WandVorher.jpeg"
-import WandNachher from "../assets/WandNachher.png"
-import AmaturNachher from "../assets/AmaturNachher.jpeg"
-import AmaturVorher from "../assets/AmaturVorher.jpeg"
-import KücheNachher from "../assets/KücheNachher.jpeg"
-import KücheVorher from "../assets/KücheVorher.jpeg"
-import DuscheVorher from "../assets/DuscheVorher.jpeg"
-import DuscheNachher from "../assets/DuscheNachher.jpeg"
 
-import Küche from "../assets/Küche.jpeg"
-import Wand from "../assets/Wand.jpeg"
-import Amatur from "../assets/Amatur.jpeg"
-import Dusche from "../assets/Dusche.jpeg"
-import Kunstrasen from "../assets/Kunstrasen.jpeg"
-import Laminat from "../assets/Laminat.jpeg"
-import Repair from "../assets/Repair.jpeg"
+import KunstrasenVorher from "../assets/KunstrasenVorher.jpeg";
+import KunstrasenNachher from "../assets/KunstrasenNachher.jpeg";
+import BadezimmerVorher from "../assets/BadezimmerVorher.jpeg";
+import BadezimmerNachher from "../assets/BadezimmerNachher.jpeg";
+import LaminatVorher from "../assets/LaminatVorher.jpeg";
+import LaminatNachher from "../assets/LaminatNachher.jpeg";
+import WandVorher from "../assets/WandVorher.jpeg";
+import WandNachher from "../assets/WandNachher.png";
+import AmaturNachher from "../assets/AmaturNachher.jpeg";
+import AmaturVorher from "../assets/AmaturVorher.jpeg";
+import KücheNachher from "../assets/KücheNachher.jpeg";
+import KücheVorher from "../assets/KücheVorher.jpeg";
+import DuscheVorher from "../assets/DuscheVorher.jpeg";
+import DuscheNachher from "../assets/DuscheNachher.jpeg";
 
-import { useEffect, useState } from "react";
-
+import Küche from "../assets/Küche.jpeg";
+import Wand from "../assets/Wand.jpeg";
+import Amatur from "../assets/Amatur.jpeg";
+import Dusche from "../assets/Dusche.jpeg";
+import Kunstrasen from "../assets/Kunstrasen.jpeg";
+import Laminat from "../assets/Laminat.jpeg";
+import Repair from "../assets/Repair.jpeg";
 
 const Projects = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedProject, setSelectedProject] = useState<any>(null);
 
+  // Preload images to reduce perceived loading time in dialog
+  useEffect(() => {
+    const allImages = [
+      LaminatVorher, LaminatNachher,
+      KunstrasenVorher, KunstrasenNachher,
+      BadezimmerVorher, BadezimmerNachher,
+      WandVorher, WandNachher,
+      AmaturVorher, AmaturNachher,
+      KücheVorher, KücheNachher,
+      DuscheVorher, DuscheNachher,
+      Küche, Wand, Amatur, Dusche, Kunstrasen, Laminat, Repair
+    ];
 
-  const preloadImage = (src: string) => {
-    const img = new Image();
-    img.src = src;
-  };
+    allImages.forEach((src) => {
+      const img = new Image();
+      img.src = src as string;
+    });
+  }, []);
 
-  const Projects = () => {
-    useEffect(() => {
-      const imageUrls = [
-        // Laminat
-        require("../assets/LaminatVorher.jpeg"),
-        require("../assets/LaminatNachher.jpeg"),
-
-        // Kunstrasen
-        require("../assets/KunstrasenVorher.jpeg"),
-        require("../assets/KunstrasenNachher.jpeg"),
-
-        // Badezimmer
-        require("../assets/BadezimmerVorher.jpeg"),
-        require("../assets/BadezimmerNachher.jpeg"),
-
-        // Wand
-        require("../assets/WandVorher.jpeg"),
-        require("../assets/WandNachher.png"),
-
-        // Amatur
-        require("../assets/AmaturVorher.jpeg"),
-        require("../assets/AmaturNachher.jpeg"),
-
-        // Küche
-        require("../assets/KücheVorher.jpeg"),
-        require("../assets/KücheNachher.jpeg"),
-      ];
-
-      imageUrls.forEach((src) => preloadImage(src as string));
-    }, []);
-  }
   const projects = [
     {
       icon: "🏡",
       title: "Laminatboden im Wohnzimmer",
       description: "Moderne Laminatverlegung",
       category: "Laminat",
-      beforeImage:
-        LaminatVorher,
-      afterImage:
-        LaminatNachher,
-        background:
-        Laminat,
+      beforeImage: LaminatVorher,
+      afterImage: LaminatNachher,
+      background: Laminat,
     },
     {
       icon: "🌿",
       title: "Kunstrasenverlegung im Garten",
       description: "Komplette Gartengestaltung mit Kunstrasen",
       category: "Kunstrasen",
-      beforeImage:
-        KunstrasenVorher,
-      afterImage:
-        KunstrasenNachher,
-        background:
-        Kunstrasen,
+      beforeImage: KunstrasenVorher,
+      afterImage: KunstrasenNachher,
+      background: Kunstrasen,
     },
     {
       icon: "🔨",
       title: "Badezimmersanierung",
       description: "Komplette Badsanierung mit Fliesenarbeiten",
       category: "Sanierung",
-      beforeImage:
-        BadezimmerVorher,
-      afterImage:
-        BadezimmerNachher,
-        background:
-        Repair,
+      beforeImage: BadezimmerVorher,
+      afterImage: BadezimmerNachher,
+      background: Repair,
     },
     {
       icon: "🧰",
       title: "Wandsanierung",
       description: "Tapeten sauber abgezogen und die Wand gestrichen",
       category: "Sanierung",
-      beforeImage:
-        WandVorher,
-      afterImage:
-        WandNachher,
-        background:
-        Wand,
+      beforeImage: WandVorher,
+      afterImage: WandNachher,
+      background: Wand,
     },
     {
       icon: "🔩",
       title: "Amaturaustausch",
       description: "Alter Wasserhahn wurde durch neuen Wasserhahn ersetzt",
       category: "Sanierung",
-      beforeImage:
-        AmaturVorher,
-      afterImage:
-        AmaturNachher,
-        background:
-        Amatur,
+      beforeImage: AmaturVorher,
+      afterImage: AmaturNachher,
+      background: Amatur,
     },
     {
       icon: "🔧",
       title: "Küchenmontage",
       description: "Küchenmontage inkl. Wasser und Abwasseranschluss",
       category: "Sanierung",
-      beforeImage:
-        KücheVorher,
-      afterImage:
-        KücheNachher,
-      background:
-        Küche,
+      beforeImage: KücheVorher,
+      afterImage: KücheNachher,
+      background: Küche,
     },
     {
-      icon: "🔧",
-      title: "Badezimmersanierung",
-      description: "Individuelle Planung, hochwertige Umsetzung.",
+      icon: "🚿",
+      title: "Dusche erneuert",
+      description: "Moderne Dusche mit neuem Ablauf und Fliesen",
       category: "Sanierung",
-      beforeImage:
-        DuscheVorher,
-      afterImage:
-        DuscheNachher,
-      background:
-        Dusche,
+      beforeImage: DuscheVorher,
+      afterImage: DuscheNachher,
+      background: Dusche,
     },
   ];
 
-  const ImageSlideshow = ({ before, after }: { before: string; after: string }) => {
-    const [showBefore, setShowBefore] = useState(true);
+  /* -----------------------
+     Carousel component (swipe / arrows / dots)
+     - zeigt immer ein komplettes Bild (object-contain)
+     - unterstützt Pointer-Swipe (auch Touch)
+  ------------------------*/
+  const Carousel = ({ images }: { images: string[] }) => {
+    const [index, setIndex] = useState(0);
+    const [startX, setStartX] = useState<number | null>(null);
+    const [isDragging, setIsDragging] = useState(false);
 
     useEffect(() => {
-      const interval = setInterval(() => {
-        setShowBefore((prev) => !prev);
-      }, 3000); // wechselt alle 3 Sekunden
-      return () => clearInterval(interval);
-    }, []);
+      // reset index when images change
+      setIndex(0);
+    }, [images]);
+
+    const next = () => setIndex((i) => (i + 1) % images.length);
+    const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
+    const goTo = (i: number) => setIndex(i);
+
+    const onPointerDown = (e: React.PointerEvent) => {
+      (e.target as Element).setPointerCapture(e.pointerId);
+      setStartX(e.clientX);
+      setIsDragging(true);
+    };
+    const onPointerMove = (e: React.PointerEvent) => {
+      if (!isDragging || startX === null) return;
+      // you can add subtle drag feedback here if wanted
+    };
+    const onPointerUp = (e: React.PointerEvent) => {
+      if (startX === null) {
+        setIsDragging(false);
+        return;
+      }
+      const dx = e.clientX - startX;
+      const threshold = 40; // minimal pixels to count as swipe
+      if (dx > threshold) {
+        prev();
+      } else if (dx < -threshold) {
+        next();
+      }
+      setStartX(null);
+      setIsDragging(false);
+    };
+
+    // keyboard navigation while dialog open
+    useEffect(() => {
+      const onKey = (ev: KeyboardEvent) => {
+        if (ev.key === "ArrowLeft") prev();
+        if (ev.key === "ArrowRight") next();
+      };
+      window.addEventListener("keydown", onKey);
+      return () => window.removeEventListener("keydown", onKey);
+    }, [images]);
 
     return (
-      <div className="mt-6 flex-1 flex flex-col items-center justify-center">
-        {/* Label */}
-        <div className="mb-2 text-lg font-semibold text-primary">
-          {showBefore ? "Vorher" : "Nachher"}
+      <div className="w-full">
+        <div className="relative w-full max-h-[78vh] flex items-center justify-center bg-black rounded-lg overflow-hidden">
+          {/* Prev button */}
+          <button
+            aria-label="Previous"
+            onClick={prev}
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition"
+            type="button"
+          >
+            ‹
+          </button>
+
+          {/* Image container (supports pointer events for swipe) */}
+          <div
+            className="w-full flex items-center justify-center p-4"
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={() => { setStartX(null); setIsDragging(false); }}
+          >
+            <img
+              src={images[index]}
+              alt={`Slide ${index + 1}`}
+              className="max-h-[74vh] w-auto object-contain transition-opacity duration-300"
+              draggable={false}
+            />
+          </div>
+
+          {/* Next button */}
+          <button
+            aria-label="Next"
+            onClick={next}
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition"
+            type="button"
+          >
+            ›
+          </button>
         </div>
 
-        {/* Bild */}
-        <div className="flex-1 flex items-center justify-center rounded-xl overflow-hidden shadow-lg border border-border/50 bg-black w-full">
-          <img
-            src={showBefore ? before : after}
-            alt={showBefore ? "Vorher" : "Nachher"}
-            className="max-h-[70vh] w-auto object-contain transition-opacity duration-700"
-          />
-        </div>
-
-        {/* Punkte-Navigation */}
-        <div className="mt-4 flex space-x-3">
-          <span
-            className={`w-3 h-3 rounded-full ${showBefore ? "bg-primary scale-125" : "bg-muted"
-              } transition-all duration-300`}
-          ></span>
-          <span
-            className={`w-3 h-3 rounded-full ${!showBefore ? "bg-primary scale-125" : "bg-muted"
-              } transition-all duration-300`}
-          ></span>
+        {/* Dots */}
+        <div className="flex items-center justify-center gap-3 mt-3">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`w-3 h-3 rounded-full transition-transform ${i === index ? "bg-primary scale-125" : "bg-muted"}`}
+              type="button"
+            />
+          ))}
         </div>
       </div>
     );
@@ -231,7 +259,7 @@ const Projects = () => {
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
 
-                {/* Overlay */}
+                {/* Overlay (visible on hover) */}
                 <div
                   className={`absolute inset-0 bg-black/60 flex flex-col justify-center items-center text-white text-center p-4 transition-opacity duration-300 ${hoveredIndex === index ? "opacity-100" : "opacity-0"
                     }`}
@@ -271,28 +299,26 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Dialog für Vorher/Nachher */}
+      {/* Dialog für Galerie (Vorher/Nachher) */}
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-        <DialogContent className="max-w-4xl max-h-[90vh] p-6 flex flex-col">
+        <DialogContent className="w-full max-w-4xl max-h-[95vh] p-4 sm:p-6 flex flex-col">
           {selectedProject && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-2xl font-bold text-primary">
+                <DialogTitle className="text-xl sm:text-2xl font-bold text-primary">
                   {selectedProject.title}
                 </DialogTitle>
-                <p className="text-muted-foreground">{selectedProject.description}</p>
+                <p className="text-sm sm:text-base text-muted-foreground">{selectedProject.description}</p>
               </DialogHeader>
 
-              {/* Bild-Slideshow */}
-              <ImageSlideshow
-                before={selectedProject.beforeImage}
-                after={selectedProject.afterImage}
-              />
+              {/* Carousel mit zwei Bildern (Vorher / Nachher) */}
+              <div className="mt-4 flex-1">
+                <Carousel images={[selectedProject.beforeImage, selectedProject.afterImage]} />
+              </div>
             </>
           )}
         </DialogContent>
       </Dialog>
-
     </section>
   );
 };
