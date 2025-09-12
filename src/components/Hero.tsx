@@ -8,6 +8,7 @@ const Hero = () => {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
+  
 
   return (
     <section

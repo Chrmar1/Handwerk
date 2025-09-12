@@ -35,8 +35,8 @@ const PriceCalculator = () => {
   const additionalRates = {
     oldFlooring: 8,
     tiles: 10,
-    leveling5mm: 25,
-    leveling10mm: 45,
+    leveling5mm: 13,
+    leveling10mm: 24,
   };
 
   const calculatePrice = () => {
@@ -269,8 +269,8 @@ const PriceCalculator = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="none">Keine</SelectItem>
-                        <SelectItem value="5mm">bis 5mm (+25 €/m²)</SelectItem>
-                        <SelectItem value="10mm">bis 10mm (+45 €/m²)</SelectItem>
+                        <SelectItem value="5mm">bis 5mm (+13 €/m²)</SelectItem>
+                        <SelectItem value="10mm">bis 10mm (+24 €/m²)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
