@@ -53,7 +53,7 @@ const Hero = () => {
             <Button
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-primary transition-all duration-300 transform hover:-translate-y-1"
+              className="border-white text-primary hover:bg-white hover:text-primary transition-all duration-300 transform hover:-translate-y-1"
               onClick={() => scrollToSection("contact")}
             >
               Kostenlose Beratung
