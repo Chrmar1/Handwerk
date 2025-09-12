@@ -18,6 +18,17 @@ import AmaturNachher from "../assets/AmaturNachher.jpeg"
 import AmaturVorher from "../assets/AmaturVorher.jpeg"
 import KücheNachher from "../assets/KücheNachher.jpeg"
 import KücheVorher from "../assets/KücheVorher.jpeg"
+import DuscheVorher from "../assets/DuscheVorher.jpeg"
+import DuscheNachher from "../assets/DuscheNachher.jpeg"
+
+import Küche from "../assets/Küche.jpeg"
+import Wand from "../assets/Wand.jpeg"
+import Amatur from "../assets/Amatur.jpeg"
+import Dusche from "../assets/Dusche.jpeg"
+import Kunstrasen from "../assets/Kunstrasen.jpeg"
+import Laminat from "../assets/Laminat.jpeg"
+import Repair from "../assets/Repair.jpeg"
+
 import { useEffect, useState } from "react";
 
 
@@ -72,6 +83,8 @@ const Projects = () => {
         LaminatVorher,
       afterImage:
         LaminatNachher,
+        background:
+        Laminat,
     },
     {
       icon: "🌿",
@@ -82,6 +95,8 @@ const Projects = () => {
         KunstrasenVorher,
       afterImage:
         KunstrasenNachher,
+        background:
+        Kunstrasen,
     },
     {
       icon: "🔨",
@@ -92,6 +107,8 @@ const Projects = () => {
         BadezimmerVorher,
       afterImage:
         BadezimmerNachher,
+        background:
+        Repair,
     },
     {
       icon: "🧰",
@@ -102,6 +119,8 @@ const Projects = () => {
         WandVorher,
       afterImage:
         WandNachher,
+        background:
+        Wand,
     },
     {
       icon: "🔩",
@@ -112,6 +131,8 @@ const Projects = () => {
         AmaturVorher,
       afterImage:
         AmaturNachher,
+        background:
+        Amatur,
     },
     {
       icon: "🔧",
@@ -122,6 +143,20 @@ const Projects = () => {
         KücheVorher,
       afterImage:
         KücheNachher,
+      background:
+        Küche,
+    },
+    {
+      icon: "🔧",
+      title: "Badezimmersanierung",
+      description: "Individuelle Planung, hochwertige Umsetzung.",
+      category: "Sanierung",
+      beforeImage:
+        DuscheVorher,
+      afterImage:
+        DuscheNachher,
+      background:
+        Dusche,
     },
   ];
 
@@ -191,7 +226,7 @@ const Projects = () => {
               {/* Nachher-Bild als Hintergrund */}
               <div className="relative h-48 flex items-center justify-center overflow-hidden">
                 <img
-                  src={project.afterImage}
+                  src={project.background}
                   alt={project.title}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />

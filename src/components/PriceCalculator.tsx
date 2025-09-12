@@ -237,9 +237,10 @@ const PriceCalculator = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="normal">Normal</SelectItem>
-                      <SelectItem value="hoch">Hoch</SelectItem>
+                      <SelectItem value="hoch">Hoch (x1.2)</SelectItem>
                     </SelectContent>
                   </Select>
+                  <p className="mt-4 text-xs text-red-700">Hoher Aufwand liegt vor bei verklebtem  Boden, fehlendem Zugang oder zusätzlichen Erschwernissen</p>
                 </div>
               )}
 
