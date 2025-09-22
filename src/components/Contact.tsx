@@ -82,7 +82,7 @@ const Contact = () => {
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-4">Unser Servicegebiet</h3>
                 <p className="mb-4">
-                  Wir sind in ganz Köln und den umliegenden Gemeinden für Sie da:
+                  Wir sind in ganz Köln und Umgebung für Sie da:
                 </p>
               </CardContent>
             </Card>

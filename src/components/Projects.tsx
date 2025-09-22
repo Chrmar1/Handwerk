@@ -265,7 +265,6 @@ const Projects = () => {
                     }`}
                 >
                   <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-sm mb-2">{project.description}</p>
                   <span className="mt-2 px-3 py-1 bg-accent text-accent-foreground rounded-full text-sm font-medium">
                     {project.category}
                   </span>
@@ -276,7 +275,6 @@ const Projects = () => {
                 <h3 className="text-xl font-semibold text-primary mb-2 group-hover:text-primary-glow transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-muted-foreground">{project.description}</p>
               </CardContent>
             </Card>
           ))}

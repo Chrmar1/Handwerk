@@ -153,7 +153,7 @@ const PriceCalculator = () => {
                 </div>
                 <div className="bg-muted p-4 rounded-lg shadow-sm">
                   <div className="font-medium">Nivellieren bis 5/10 mm</div>
-                  <div className="text-muted-foreground">Ø 25/45 €/m²</div>
+                  <div className="text-muted-foreground">Ø 13/24 €/m²</div>
                 </div>
                 <div className="bg-muted p-4 rounded-lg shadow-sm">
                   <div className="font-medium">Zone A (0-10km)</div>
